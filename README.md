@@ -13,6 +13,17 @@ npm run dev
 
 # build for production with minification
 npm run build
+
+# run api server
+npm run server
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Reference
+
+- [vue-zhihudaily](https://github.com/iHaPBoy/vue-zhihudaily)
+- [zhihu-daily-byVuejs](https://github.com/GaryChangCN/zhihu-daily-byVuejs)
+- [ZhihuDailyPurify](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
