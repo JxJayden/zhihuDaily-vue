@@ -16,37 +16,65 @@
   </div>
 </template>
 <script>
-  import {API_ROOT} form '../../api_config.js'
+  import { API_ROOT } from '../api_config.js'
   export default {
     name: 'slideMenu',
-    data: function() {
+    data: function () {
       return {
-        themes: {},
+        themes: [],
         opacity: '0',
         left: '-100%'
       }
     },
-    method: {
-      showRight: function() {
+    methods: {
+      showRight: function () {
         this.$data.opacity = (this.$data.left === '0px')
                              ? '0.4'
                              : '0';
-      }
-      menuClose: function() {
+      },
+      menuClose: function () {
         this.$data.opacity = '0';
         this.left = '-100%';
       }
-      compiled: function() {
-        this.$http.get(API_ROOT + '/api/themes').then(function(response) {
-          this.$data.themes = response.json();
-        },function(response) {
+    },
+    beforeMount: function () {
+        console.log(API_ROOT);
+        this.$http.get(API_ROOT + '/themes').then(function (response) {
+        console.log(response.body.others);
+          this.$data.themes = response.body.others;
+        },function (response) {
           alert('sorry~出了一个小问题。');
           throw 'get themes wrong';
         })
       }
-    }
   }
 </script>
-<style>
 
+<style lang="scss" scoped>
+$blue:#00a2ea;
+$white:#fff;
+
+.theme-menu {
+  height: inherit;
+  width: inherit;
+  display: space-between;
+  align-items: flex-start;
+  position:absolute;
+  transtion: left 0.5s;
+  z-index: 50;
+}
+
+.menu-left {
+  height: inherit;
+  width: 70%;
+  overflow: auto;
+  backfround: $white;
+}
+
+.menu-right {
+  height: inherit;
+  width: 30%;
+  opacity: 0;
+  transtion: opacity 0.5s;
+}
 </style>

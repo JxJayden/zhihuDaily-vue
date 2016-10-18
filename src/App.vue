@@ -50,9 +50,9 @@
     components: {
       slideMenu
     },
-    method: {
+    methods: {
       showMenu: function() {
-        this.$children[0].$set("left", "0px");
+        this.$children[0].$data.left = "0px";
       },
       scrollContent: function(event) {
         var $target = event?event.target:window.event.target;
@@ -67,7 +67,7 @@
         } else { return true; }
       }
     },
-    beforeCompile: function() {
+    beforeMount: function() {
       this.$data.height = window.innerHeight;
     }
   };

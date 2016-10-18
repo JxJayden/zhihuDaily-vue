@@ -1,5 +1,5 @@
 var http = require('http');
-var server = http.creatServer();
+var server = http.createServer();
 var url = require('url');
 var querystring = require('querystring');
 
@@ -18,11 +18,15 @@ server.on('request', function(req, res) {
 
   const urlOption = url.parse(req.url);
   const pathName = urlOption.pathname;
+
+  console.log('urlOption is' +urlOption);
+  console.log('request for '+pathName);
+
   switch (pathName) {
     case '/api/themes':
-      let request = http.request('http://news-at.zhihu.com/api/4/themes');
+      var request = http.request('http://news-at.zhihu.com/api/4/themes');
       request.on('response', function(response) {
-        let c = '';
+        var c = '';
         response.setEncoding('utf8');
         response.on('data', function(chunk) {
           c += chunk;
@@ -46,7 +50,7 @@ server.on('request', function(req, res) {
     case '/api/news/latest':
       var request = http.request('http://news-at.zhihu.com/api/4/news/latest');
       request.on('response', function(response) {
-        let c = '';
+        var c = '';
         response.setEncoding('utf8');
         response.on('data', function(chunk) {
           c += chunk;
