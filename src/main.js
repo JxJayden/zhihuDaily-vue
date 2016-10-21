@@ -13,9 +13,9 @@ Vue.use(VueResource);
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/index', component: Index },
-  { path: '/article', component: Article },
-  { path: '/contents', component: Contents },
+  { path: '/index', name: 'index', component: Index },
+  { path: '/article/:id/:name/:thumbnail/:description', name: 'article', component: Article },
+  { path: '/contents/:id', name: 'contents', component: Contents },
   { path: '*', component: Index },
 ];
 

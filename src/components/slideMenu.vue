@@ -1,18 +1,25 @@
 <template>
-  <div class="theme-menu" :style="{left: left}" @transitionend="showRight">
-    <div class="menu-left">
+  <div id="theme-menu" :style="{left: left}" @transitionend="showRight">
+    <div id="menu-left">
       <ul>
-        <li><router-link @click="menuClose" to="/index">首页</router-link></li>
-        <li v-for="theme in themes">
+        <li @click="menuClose()">
           <router-link
-            @click="menuClose"
-            to="/article?id='+theme.id+'&name='+theme.name+'&thumbnail='+theme.thumbnail+'&thumbnail='+theme.thumbnail+'&description='+theme.description}">
+              :to="{ name: 'index' }">
+              首页</router-link>
+        </li>
+        <li v-for="theme in themes" @click="menuClose()">
+          <router-link
+            :to="{ name: 'article',
+            params: {id: theme.id, name: theme.name, thumbnail: theme.thumbnail, description: theme.description }}">
             {{theme.name}}
           </router-link>
         </li>
       </ul>
     </div>
-    <div class="menu-right" @click="menuClose" :style="{opacity:opacity}"></div>
+    <div id="menu-right"
+      @click="menuClose()"
+      :style="{opacity:opacity}">
+    </div>
   </div>
 </template>
 <script>
@@ -54,27 +61,60 @@
 $blue:#00a2ea;
 $white:#fff;
 
-.theme-menu {
+#theme-menu {
   height: inherit;
   width: inherit;
-  display: space-between;
+  display: flex;
+  justify-content: space-between;
   align-items: flex-start;
   position:absolute;
-  transtion: left 0.5s;
+  transition: left 0.5s;
   z-index: 50;
+  overflow-x: hidden;
 }
 
-.menu-left {
+#menu-left {
   height: inherit;
   width: 70%;
   overflow: auto;
-  backfround: $white;
+  background-color: $white;
+
 }
 
-.menu-right {
+#menu-right {
   height: inherit;
   width: 30%;
   opacity: 0;
-  transtion: opacity 0.5s;
+  background-color: #000;
+  transition: opacity 0.5s;
+}
+ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  li {
+    list-style-type: none;
+    display: flex;
+    width: 90%;
+    padding-left: 5%;
+    justify-content: flex-start;
+    align-items: center;
+    height: 50px;
+    a {
+      text-decoration: none;
+      color: #000;
+      line-height: 50px;
+      display: block;
+      height: inherit;
+      width: inherit;
+    }
+    &:hover {
+      background-color: #f2f2f2;
+    }
+    active {
+            background-color: #f4f4f4;
+    }
+  }
 }
 </style>

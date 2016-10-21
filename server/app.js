@@ -47,7 +47,7 @@ server.on('request', function(req, res) {
       });
       request.end();
       break;
-    case '/api/news/latest':
+    case '/api/latest':
       var request = http.request('http://news-at.zhihu.com/api/4/news/latest');
       request.on('response', function(response) {
         var c = '';
@@ -203,32 +203,33 @@ server.on('request', function(req, res) {
       break;
     case '/api/pic':
       var query = querystring.parse(urlOption.query);
-      var img = query.img;
-      var imgUrl = url.parse(img);
-      imgUrl.headers = {
-        'Referer': 'https://daily.zhihu.com/',
-      };
-      var opt = {
-        hostname: imgUrl.hostname,
-        port: '80',
-        path: imgUrl.path,
-        headers: imgUrl.headers,
-      }
-      var request = http.request(opt);
-      request.on('response', function(response) {
-        var c = '';
-        response.setEncoding('binary');
-        response.on('data', function(chunk) {
-          c += chunk;
+        var img = query.img;
+        var imgUrl = url.parse(img);
+        imgUrl.headers = {
+          'Referer': 'https://daily.zhihu.com/'
+        };
+        var opt={
+          hostname:imgUrl.hostname,
+          port:'80',
+          path:imgUrl.path,
+          headers:imgUrl.headers
+        }
+        var request = http.request(opt);
+        request.on('response', function(response) {
+          var c = '';
+          response.setEncoding('binary');
+          response.on('data', function(chunk) {
+              c += chunk;
+          });
+          response.on('end', function() {
+            res.writeHead(200, response.headers);
+            res.write(c, 'binary');
+              //require("fs").writeFile('./tmp/'+)
+            res.end();
+          });
         });
-        response.on('end', function() {
-          res.writeHead(200, response.headers);
-          res.write(c, 'binary');
-          res.end();
-        })
-      });
-      request.end();
-      break;
+        request.end();
+        break;
     default:
       res.writeHead(404);
       res.write('404: Not Found');
