@@ -11,15 +11,15 @@
     <div id="container" :style="{height: containerHeight}">
       <div id="header" :style="{opacity: opacity, visibility: visibility}">
         <div id="topbar">
-          <a id="top" @click="showMenu" v-if="ifIndex">more</a>
+          <a id="top" @click="showMenu" v-if="ifIndex"></a>
           <router-link to='/index' v-if="!ifIndex">返回</router-link>
-          <span id="head-title" v-show="titleShow">{{headTitle}}</span>
         </div>
+          <span id="head-title" v-show="titleShow">{{headTitle}}</span>
           <iframe
-            src="https://ghbtns.com/github-btn.html?user=JxJayden&repo=zhihuDaily-vue&type=star&count=false&size=large"
+            src="https://ghbtns.com/github-btn.html?user=JxJayden&repo=zhihuDaily-vue&type=star&size=large"
             frameborder="0"
             scrolling="0"
-            width="160px"
+            width="100px"
             height="30px">
           </iframe>
       </div>
@@ -37,7 +37,7 @@
     name: 'app',
     data () {
       return {
-        headTitle: '首页',
+        headTitle: '热乎乎的今日新闻',
         titleShow: true,
         ifIndex: true,
         height: 960,
@@ -115,6 +115,18 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 10;
+}
+
+#top {
+  display: inline-block;
+  width: 26px;
+  height: 20px;
+  border-top: 2px #fff solid;
+  border-bottom: 2px #fff solid;
+}
+
+#head-title {
+  font-size: 20px;
 }
 
 #topbar {

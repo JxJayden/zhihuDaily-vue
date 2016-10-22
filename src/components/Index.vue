@@ -11,7 +11,6 @@
       </div>
     </div>
     <div id="listContent">
-      <span id="listContentTitle">{{title}}</span>
       <ul id="list">
         <li id="listItem" v-for="story in stories">
           <router-link :to="{name: 'contents', params: {id: story.id}}">
@@ -36,7 +35,6 @@
         stories: [],
         top_stories: [],
         topRightBase: 0,
-        title: '今日',
         API: API_ROOT
       }
     },
@@ -56,7 +54,7 @@
           console.log(response);
           this.$data.top_stories = response.body.top_stories;
           this.$data.stories = response.body.stories;
-          this.$root.$data.headTitle = '首页';
+          this.$parent.$data.headTitle = '热乎乎的今日新闻';
         });
       }
     },
@@ -131,12 +129,9 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    #listContentTitle {
-      display: block;
-      width: calc(100% - 40px);
-      padding: 20px 0 10px 40px;
-      font-size: 18px;
-      color: $black-light;
+    padding-top: 5%;
+    #list {
+      padding-left: 0;
     }
     #listItem {
       padding: 8px 8px 8px 8px;

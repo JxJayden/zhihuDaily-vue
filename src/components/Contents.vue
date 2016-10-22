@@ -25,16 +25,18 @@
         var $id = this.$route.params.id;
         this.$http.get(API_ROOT + '/news',{params: {id: $id}}).then((res) => {
           var json = res.body;
-          var topImg = json.image.replace(/http/, API_ROOT + '/pic?img=http');
           var body = json.body.replace(/src="http/g, 'src="' + API_ROOT + '/pic?img=http');
-          var replaceTop = '<div class="headline">\
-                              <div class="img-wrap">\
-                                <h1 class="headline-title">'+ json.title +'</h1>\
-                                <span class="img-source">图片：'+ json.image_source +'</span>\
-                                <img src="'+ topImg +'" alt="">\
-                                <div class="img-mask"></div>\
-                            </div></div>'
+          if(json.image) {
+            var topImg = json.image.replace(/http/, API_ROOT + '/pic?img=http');
+            var replaceTop = '<div class="headline">\
+                                <div class="img-wrap">\
+                                  <h1 class="headline-title">'+ json.title +'</h1>\
+                                  <span class="img-source">图片：'+ json.image_source +'</span>\
+                                  <img src="'+ topImg +'" alt="">\
+                                  <div class="img-mask"></div>\
+                              </div></div>'
           body = body.replace(/<div class="headline">\n{0,100000}<div class="img-place-holder">\n{0,100000}<\/div>\n{0,100000}<\/div>/, replaceTop);
+          }
           this.$data.body = body;
         });
       }
